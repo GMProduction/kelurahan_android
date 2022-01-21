@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kelurahan/berita.dart';
 import 'package:kelurahan/profil.dart';
 
 
@@ -32,6 +33,7 @@ class _BaseState extends State<Base> {
   final _widgetOptions = [
     Beranda(),
     Pengajuan(),
+    Berita(),
     Profil(),
   ];
 

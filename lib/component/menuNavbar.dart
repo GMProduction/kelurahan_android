@@ -11,5 +11,6 @@ class MenuNavbar {
 const List<MenuNavbar> allDestinations = <MenuNavbar>[
   MenuNavbar('Beranda', Icons.home_outlined),
   MenuNavbar('Pengajuan', Icons.assignment),
+  MenuNavbar('Berita', Icons.connected_tv_outlined),
   MenuNavbar('Profil', Icons.account_box_outlined),
 ];

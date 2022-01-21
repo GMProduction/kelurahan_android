@@ -390,7 +390,7 @@ class _DaftarState extends State<Daftar> {
     });
     if (data["status"] == 200) {
       setState(() {
-        setPrefferenceToken(data["data"]["token"]);
+        setPrefferenceToken(data["payload"]["access_token"]);
 
         Navigator.pushReplacementNamed(context, "base");
       });

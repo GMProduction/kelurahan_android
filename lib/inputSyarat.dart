@@ -191,7 +191,7 @@ class _InputSyaratState extends State<InputSyarat> {
     print("DATA $data");
 
 
-    if (data == "sukses") {
+    if (data["status"] == 200) {
       toastShow("Berhasil input, silahkan tunggu update dari kami", context,
           Colors.black);
       Navigator.pushReplacementNamed(context, "base");

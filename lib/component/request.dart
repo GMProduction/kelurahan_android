@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'genPreferrence.dart';
 
-
 String ip = "http://192.168.137.1:8000";
 
 String token;
@@ -113,11 +112,23 @@ class GenRequest {
       print(token);
       Response response;
       response = await Dio().get(ip + "/api/" + portal,
-          options: Options(headers: {'Authorization':'Bearer ' + token, 'Accept': 'application/json'}));
+          options: Options(
+              followRedirects: true,
+              validateStatus: (status) {
+                return status < 500;
+              },
+              headers: {
+                'Authorization': 'Bearer ' + token,
+                'Accept': 'application/json'
+              }));
       return response.data;
-    } catch (e) {
-      print("eee $e");
-      return {"code": 500, "message": e.toString()};
+    } on DioError catch (e) {
+      if (e.response.statusCode == 404) {
+        print(e.response.statusCode);
+      } else {
+        print(e.message);
+        print(e.response);
+      }
     }
   }
 
@@ -126,7 +137,8 @@ class GenRequest {
       Response response = await Dio().get(ip + "/api-public/" + portal);
       return response.data;
     } catch (e) {
-      return {"code": 500, "msg": e};;
+      return {"code": 500, "msg": e};
+
     }
   }
 
@@ -141,7 +153,10 @@ class GenRequest {
               followRedirects: false,
               // will not throw errors
               validateStatus: (status) => true,
-              headers: {'Authorization':'Bearer '+token, 'Accept': 'application/json'},
+              headers: {
+                'Authorization': 'Bearer ' + token,
+                'Accept': 'application/json'
+              },
               contentType: 'multipart/form-data'));
 
       return response.data;
@@ -162,7 +177,10 @@ class GenRequest {
               followRedirects: false,
               // will not throw errors
               validateStatus: (status) => true,
-              headers: {'Authorization':'Bearer '+token, 'Accept': 'application/json'},
+              headers: {
+                'Authorization': 'Bearer ' + token,
+                'Accept': 'application/json'
+              },
               contentType: Headers.formUrlEncodedContentType));
 
       return response.data;
@@ -191,6 +209,7 @@ class GenRequest {
       return {"code": e.toString(), "msg": e.toString()};
     }
   }
+
   postFormWoApi(portal, data) async {
     try {
       var token = await getPrefferenceToken();
@@ -209,9 +228,9 @@ class GenRequest {
 
   postApi(portal, Map<dynamic, dynamic> data) async {
     try {
-      print("data" +data.toString());
+      print("data" + data.toString());
 
-      print("ipnya "+ip + "/api/" + portal);
+      print("ipnya " + ip + "/api/" + portal);
       Response response = await Dio().post(ip + "/api/" + portal,
           data: data,
           options: Options(headers: {'Accept': 'application/json'}));

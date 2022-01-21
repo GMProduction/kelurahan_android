@@ -1,4 +1,5 @@
 
+import 'package:kelurahan/DetailBerita.dart';
 import 'package:kelurahan/inputSyarat.dart';
 import 'package:provider/provider.dart';
 
@@ -65,7 +66,9 @@ class GenProvider {
         return InputSyarat();
       },
 
-
+      'detailBerita': (context) {
+        return DetailBerita();
+      },
     };
   }
 }

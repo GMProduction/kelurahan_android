@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kelurahan">
+
+
    <application
         android:label="kelurahan"
         android:icon="@mipmap/ic_launcher">
